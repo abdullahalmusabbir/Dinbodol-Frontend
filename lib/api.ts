@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig } from "axios";
 import { AuthTokens } from "@/types";
 
-export const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+export const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://diptodip.pythonanywhere.com";
 
 // ============================================
 // AXIOS INSTANCE

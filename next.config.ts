@@ -1,6 +1,6 @@
 const nextConfig = {
   images: {
-    domains: ["localhost", "localhost:8000"],  
+    domains: ["localhost", "localhost:8000", "diptodip.pythonanywhere.com"],  
     unoptimized: true,
   },
 };
