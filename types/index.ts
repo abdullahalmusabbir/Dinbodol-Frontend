@@ -76,7 +76,13 @@ export interface AdminProfile {
 // LOST REPORT TYPES
 // ============================================
 
-export type LostReportStatus = "পাওয়া" | "হারানো" | "ফেরত পাওয়া";
+export type LostReportStatus = "পাওয়া" | "হারানো" | "ফেরত পাওয়া";
+// Single source of truth — every literal below is type-checked against the union
+export const LOST_STATUS = {
+    LOST: "হারানো",
+    FOUND: "পাওয়া",
+    RETURNED: "ফেরত পাওয়া",
+} as const satisfies Record<string, LostReportStatus>;
 
 export interface LostReport {
   id: number;

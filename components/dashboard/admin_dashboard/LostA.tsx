@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { lostReportApi } from "@/lib/api";
-import { LostReport, LostReportStatus } from "@/types";
+import { LostReport, LostReportStatus, LOST_STATUS } from "@/types";
 import Portal from "@/components/dashboard/admin_dashboard/Portal";
 // ============================================
 // TYPES
@@ -19,19 +19,19 @@ const toBangla = (num: number): string => {
 
 // Type Badge (status = হারানো / পাওয়া / ফেরত পাওয়া)
 const TypeBadge = ({ status }: { status: LostReportStatus | null }) => {
-    if (status === "হারানো")
+    if (status === LOST_STATUS.LOST)
         return (
         <span className="inline-flex items-center gap-1.5 bg-red-50 text-red-700 px-2.5 py-1 rounded-full text-[11px] font-semibold">
             <i className="fa-solid fa-magnifying-glass text-[8px]"></i>হারানো
         </span>
         );
-    if (status === "পাওয়া")
+    if (status === LOST_STATUS.FOUND)
         return (
         <span className="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-full text-[11px] font-semibold">
             <i className="fa-solid fa-hand-holding text-[8px]"></i>পাওয়া
         </span>
         );
-    if (status === "ফেরত পাওয়া")
+    if (status === LOST_STATUS.RETURNED)
         return (
         <span className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 px-2.5 py-1 rounded-full text-[11px] font-semibold">
             <i className="fa-solid fa-check text-[8px]"></i>ফেরত পাওয়া
