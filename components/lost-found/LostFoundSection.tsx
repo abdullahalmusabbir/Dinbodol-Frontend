@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { lostReportApi } from "@/lib/api";
-import { LostReport, LostReportStatus } from "@/types";
+import { LostReport, LostReportStatus, LOST_REPORT_STATUS } from "@/types";
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
 
@@ -41,7 +41,7 @@ function formatDate(dateStr: string): string {
         month: "long",
         year: "numeric",
     });
-    }
+}
 
 function timeSince(date: Date): string {
     const seconds = Math.floor((new Date().getTime() - date.getTime()) / 1000);
@@ -67,7 +67,7 @@ function PostCard({ post }: { post: LostReport }) {
         if (path.startsWith("http://") || path.startsWith("https://")) return path;
         return `${process.env.NEXT_PUBLIC_API_URL}${path}`;
     }
-    const isLost = post.status === "হারানো";
+    const isLost = post.status === LOST_REPORT_STATUS.LOST;
 
     return (
         <div className="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-350 hover:-translate-y-1.5 hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)]">
@@ -171,7 +171,7 @@ function PostForm({
 
         try {
         const formData = new FormData();
-        formData.append("status", isLost ? "হারানো" : "পাওয়া");
+        formData.append("status", isLost ? LOST_REPORT_STATUS.LOST : LOST_REPORT_STATUS.FOUND);
         formData.append("item_name", itemName);
         formData.append("description", description);
         formData.append("location", location);
@@ -379,8 +379,8 @@ export default function LostFoundSection() {
 
     // Stats
     const totalCount = allPosts.length;
-    const lostCount = allPosts.filter((p) => p.status === "হারানো").length;
-    const foundCount = allPosts.filter((p) => p.status === "পাওয়া").length;
+    const lostCount = allPosts.filter((p) => p.status === LOST_REPORT_STATUS.LOST).length;
+    const foundCount = allPosts.filter((p) => p.status === LOST_REPORT_STATUS.FOUND).length;
 
     // ---- Fetch posts ----
     const fetchPosts = useCallback(async () => {
@@ -517,8 +517,8 @@ export default function LostFoundSection() {
                     <div className="flex flex-wrap gap-2">
                     {[
                         { key: "all", label: "সব কিছু", icon: "🗂️" },
-                        { key: "হারানো", label: "হারানো", dot: "bg-red-400" },
-                        { key: "পাওয়া", label: "পাওয়া গেছে", dot: "bg-emerald-400" },
+                        { key: LOST_REPORT_STATUS.LOST, label: "হারানো", dot: "bg-red-400" },
+                        { key: LOST_REPORT_STATUS.FOUND, label: "পাওয়া গেছে", dot: "bg-emerald-400" },
                     ].map((f) => (
                         <button
                         key={f.key}

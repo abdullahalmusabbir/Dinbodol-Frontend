@@ -84,6 +84,12 @@ export const LOST_STATUS = {
     RETURNED: "ফেরত পাওয়া",
 } as const satisfies Record<string, LostReportStatus>;
 
+export const LOST_REPORT_STATUS = {
+  FOUND: "পাওয়া" as const,
+  LOST: "হারানো" as const,
+  RETURNED: "ফেরত পাওয়া" as const,
+} satisfies Record<string, LostReportStatus>;
+
 export interface LostReport {
   id: number;
   user: User;
